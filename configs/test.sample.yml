@@ -1,0 +1,15 @@
+
+database:
+  url: postgres://postgres@localhost:5432/utm_postback_middle_test
+  MaxIdleConns: 0
+  ConnMaxLifetime: 5
+  MaxOpenConns: 1
+
+server:
+  ListenAddr: ':3000'
+  AuthToken: '81bddcd4-1a93-4a4b-a56f-3677487f89e2'
+  Host: 'http://localhost:3000'
+
+appsflyer:
+  Url: http://localhost:8099/inappevent/
+  ApiKey: apikey

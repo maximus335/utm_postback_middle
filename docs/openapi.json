@@ -1,0 +1,1066 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Postback Middle",
+      "description": "This is a postback server and creating event server for appsflyer",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "name": "API Support",
+        "email": "maxim.aleynikov@cashwagon.com"
+      },
+      "version": "1.1.1"
+    },
+    "components": {
+      "securitySchemes": {
+        "ApiKeyAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Auth-Token"
+        }
+      },
+      "schemas": {
+        "ShortEventPost": {
+          "type": "object",
+          "properties": {
+            "mobile_phone": {
+              "type": "string"
+            },
+            "eventName": {
+              "type": "string"
+            },
+            "eventValue": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "mobile_phone",
+            "eventName"
+          ]
+        },
+        "FullEventPost": {
+          "type": "object",
+          "properties": {
+            "mobile_phone": {
+              "type": "string"
+            },
+            "eventName": {
+              "type": "string"
+            },
+            "idfa_id": {
+              "type": "string"
+            },
+            "appsflyer_id": {
+              "type": "string"
+            },
+            "app_bundle": {
+              "type": "string"
+            },
+            "os": {
+              "type": "string",
+              "enum": [
+                "android",
+                "ios"
+              ]
+            },
+            "eventValue": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "mobile_phone",
+            "eventName",
+            "idfa_id",
+            "appsflyer_id",
+            "app_bundle",
+            "os"
+          ]
+        },
+        "AppsflyerData": {
+          "type": "object",
+          "properties": {
+            "af_sub1": {
+              "type": "string"
+            },
+            "af_sub2": {
+              "type": "string"
+            },
+            "af_adset": {
+              "type": "string"
+            },
+            "campaign": {
+              "type": "string"
+            },
+            "media_source": {
+              "type": "string"
+            },
+            "af_ad": {
+              "type": "string"
+            },
+            "af_siteid": {
+              "type": "string"
+            },
+            "af_channel": {
+              "type": "string"
+            },
+            "install_app_store": {
+              "type": "string"
+            }
+          }
+        },
+        "RawAppsflyerData": {
+          "type": "object",
+          "properties": {
+            "advertising_id": {
+              "type": "string"
+            },
+            "af_ad": {
+              "type": "string"
+            },
+            "af_ad_id": {
+              "type": "string"
+            },
+            "af_ad_type": {
+              "type": "string"
+            },
+            "af_adset": {
+              "type": "string"
+            },
+            "af_adset_id": {
+              "type": "string"
+            },
+            "af_attribution_lookback": {
+              "type": "string"
+            },
+            "af_c_id": {
+              "type": "string"
+            },
+            "af_cost_currency": {
+              "type": "string"
+            },
+            "af_cost_model": {
+              "type": "string"
+            },
+            "af_cost_value": {
+              "type": "string"
+            },
+            "af_keywords": {
+              "type": "string"
+            },
+            "af_prt": {
+              "type": "string"
+            },
+            "af_reengagement_window": {
+              "type": "string"
+            },
+            "af_siteid": {
+              "type": "string"
+            },
+            "af_sub1": {
+              "type": "string"
+            },
+            "af_sub2": {
+              "type": "string"
+            },
+            "af_sub3": {
+              "type": "string"
+            },
+            "af_sub4": {
+              "type": "string"
+            },
+            "af_sub5": {
+              "type": "string"
+            },
+            "af_sub_siteid": {
+              "type": "string"
+            },
+            "amazon_aid": {
+              "type": "string"
+            },
+            "android_id": {
+              "type": "string"
+            },
+            "api_version": {
+              "type": "string"
+            },
+            "app_id": {
+              "type": "string"
+            },
+            "app_name": {
+              "type": "string"
+            },
+            "app_version": {
+              "type": "string"
+            },
+            "appsflyer_id": {
+              "type": "string"
+            },
+            "attributed_touch_time": {
+              "type": "string"
+            },
+            "attributed_touch_time_selected_timezone": {
+              "type": "string"
+            },
+            "attributed_touch_type": {
+              "type": "string"
+            },
+            "bundle_id": {
+              "type": "string"
+            },
+            "campaign": {
+              "type": "string"
+            },
+            "carrier": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "contributor_1_af_prt": {
+              "type": "string"
+            },
+            "contributor_1_campaign": {
+              "type": "string"
+            },
+            "contributor_1_match_type": {
+              "type": "string"
+            },
+            "contributor_1_media_source": {
+              "type": "string"
+            },
+            "contributor_1_touch_time": {
+              "type": "string"
+            },
+            "contributor_1_touch_type": {
+              "type": "string"
+            },
+            "contributor_2_af_prt": {
+              "type": "string"
+            },
+            "contributor_2_campaign": {
+              "type": "string"
+            },
+            "contributor_2_match_type": {
+              "type": "string"
+            },
+            "contributor_2_media_source": {
+              "type": "string"
+            },
+            "contributor_2_touch_time": {
+              "type": "string"
+            },
+            "contributor_2_touch_type": {
+              "type": "string"
+            },
+            "contributor_3_af_prt": {
+              "type": "string"
+            },
+            "contributor_3_campaign": {
+              "type": "string"
+            },
+            "contributor_3_match_type": {
+              "type": "string"
+            },
+            "contributor_3_media_source": {
+              "type": "string"
+            },
+            "contributor_3_touch_time": {
+              "type": "string"
+            },
+            "contributor_3_touch_type": {
+              "type": "string"
+            },
+            "cost_in_selected_currency": {
+              "type": "string"
+            },
+            "country_code": {
+              "type": "string"
+            },
+            "custom_data": {
+              "type": "string"
+            },
+            "customer_user_id": {
+              "type": "string"
+            },
+            "deeplink_url": {
+              "type": "string"
+            },
+            "device_category": {
+              "type": "string"
+            },
+            "device_download_time": {
+              "type": "string"
+            },
+            "device_download_time_selected_timezone": {
+              "type": "string"
+            },
+            "device_type": {
+              "type": "string"
+            },
+            "htc": {
+              "type": "string"
+            },
+            "dma": {
+              "type": "string"
+            },
+            "event_name": {
+              "type": "string"
+            },
+            "event_revenue": {
+              "type": "string"
+            },
+            "event_revenue_currency": {
+              "type": "string"
+            },
+            "event_revenue_usd": {
+              "type": "string"
+            },
+            "event_source": {
+              "type": "string"
+            },
+            "event_time": {
+              "type": "string"
+            },
+            "event_time_selected_timezone": {
+              "type": "string"
+            },
+            "event_value": {
+              "type": "string"
+            },
+            "gp_broadcast_referrer": {
+              "type": "string"
+            },
+            "gp_click_time": {
+              "type": "string"
+            },
+            "gp_install_begin": {
+              "type": "string"
+            },
+            "gp_referrer": {
+              "type": "string"
+            },
+            "http_referrer": {
+              "type": "string"
+            },
+            "idfa": {
+              "type": "string"
+            },
+            "idfv": {
+              "type": "string"
+            },
+            "imei": {
+              "type": "string"
+            },
+            "install_app_store": {
+              "type": "string"
+            },
+            "install_time": {
+              "type": "string"
+            },
+            "install_time_selected_timezone": {
+              "type": "string"
+            },
+            "ip": {
+              "type": "string"
+            },
+            "is_lat": {
+              "type": "string"
+            },
+            "is_primary_attribution": {
+              "type": "string"
+            },
+            "is_receipt_validated": {
+              "type": "string"
+            },
+            "is_retargeting": {
+              "type": "string"
+            },
+            "keyword_id": {
+              "type": "string"
+            },
+            "keyword_match_type": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "match_type": {
+              "type": "string"
+            },
+            "media_source": {
+              "type": "string"
+            },
+            "network_account_id": {
+              "type": "string"
+            },
+            "oaid": {
+              "type": "string"
+            },
+            "operator": {
+              "type": "string"
+            },
+            "original_url": {
+              "type": "string"
+            },
+            "os_version": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "postal_code": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "retargeting_conversion_type": {
+              "type": "string"
+            },
+            "revenue_in_selected_currency": {
+              "type": "string"
+            },
+            "sdk_version": {
+              "type": "string"
+            },
+            "selected_currency": {
+              "type": "string"
+            },
+            "selected_timezone": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "store_reinstall": {
+              "type": "string"
+            },
+            "user_agent": {
+              "type": "string"
+            },
+            "wifi": {
+              "type": "string"
+            },
+            "af_channel": {
+                "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "paths": {
+      "/api/v1/appsflyer": {
+        "get": {
+          "summary": "Retrieves appsflyer data or raw json data based on given advertising_id or idfa or android_id",
+          "parameters": [
+            {
+              "name": "advertising_id",
+              "in": "query",
+              "description": "Advertising ID",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "android_id",
+              "in": "query",
+              "description": "Android ID",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "idfa",
+              "in": "query",
+              "description": "Idfa",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "data_type",
+              "in": "query",
+              "description": "Data type",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "raw"
+                ]
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/AppsflyerData"
+                      },
+                      {
+                        "$ref": "#/components/schemas/RawAppsflyerData"
+                      }
+                    ]
+                  },
+                  "examples": {
+                    "AppsflyerData": {
+                      "value": {
+                        "af_sub1": "string",
+                        "af_sub2": "string",
+                        "af_adset": "string",
+                        "campaign": "string",
+                        "media_source": "string",
+                        "af_ad": "string",
+                        "af_siteid": "string",
+                        "af_channel": "string",
+                        "install_app_store": "string"
+                      }
+                    },
+                    "RawAppsflyerData": {
+                      "value": {
+                        "advertising_id": "string",
+                        "af_ad": "string",
+                        "af_ad_id": "string",
+                        "af_ad_type": "string",
+                        "af_adset": "string",
+                        "af_adset_id": "string",
+                        "af_attribution_lookback": "string",
+                        "af_c_id": "string",
+                        "af_cost_currency": "string",
+                        "af_cost_model": "string",
+                        "af_cost_value": "string",
+                        "af_keywords": "string",
+                        "af_prt": "string",
+                        "af_reengagement_window": "string",
+                        "af_siteid": "string",
+                        "af_sub1": "string",
+                        "af_sub2": "string",
+                        "af_sub3": "string",
+                        "af_sub4": "string",
+                        "af_sub5": "string",
+                        "af_sub_siteid": "string",
+                        "amazon_aid": "string",
+                        "android_id": "string",
+                        "api_version": "string",
+                        "app_id": "string",
+                        "app_name": "string",
+                        "app_version": "string",
+                        "appsflyer_id": "string",
+                        "attributed_touch_time": "string",
+                        "attributed_touch_time_selected_timezone": "string",
+                        "attributed_touch_type": "string",
+                        "bundle_id": "string",
+                        "campaign": "string",
+                        "carrier": "string",
+                        "city": "string",
+                        "contributor_1_af_prt": "string",
+                        "contributor_1_campaign": "string",
+                        "contributor_1_match_type": "string",
+                        "contributor_1_media_source": "string",
+                        "contributor_1_touch_time": "string",
+                        "contributor_1_touch_type": "string",
+                        "contributor_2_af_prt": "string",
+                        "contributor_2_campaign": "string",
+                        "contributor_2_match_type": "string",
+                        "contributor_2_media_source": "string",
+                        "contributor_2_touch_time": "string",
+                        "contributor_2_touch_type": "string",
+                        "contributor_3_af_prt": "string",
+                        "contributor_3_campaign": "string",
+                        "contributor_3_match_type": "string",
+                        "contributor_3_media_source": "string",
+                        "contributor_3_touch_time": "string",
+                        "contributor_3_touch_type": "string",
+                        "cost_in_selected_currency": "string",
+                        "country_code": "string",
+                        "custom_data": "string",
+                        "customer_user_id": "string",
+                        "deeplink_url": "string",
+                        "device_category": "string",
+                        "device_download_time": "string",
+                        "device_download_time_selected_timezone": "string",
+                        "device_type": "string",
+                        "htc": "string",
+                        "dma": "string",
+                        "event_name": "string",
+                        "event_revenue": "string",
+                        "event_revenue_currency": "string",
+                        "event_revenue_usd": "string",
+                        "event_source": "string",
+                        "event_time": "string",
+                        "event_time_selected_timezone": "string",
+                        "event_value": "string",
+                        "gp_broadcast_referrer": "string",
+                        "gp_click_time": "string",
+                        "gp_install_begin": "string",
+                        "gp_referrer": "string",
+                        "http_referrer": "string",
+                        "idfa": "string",
+                        "idfv": "string",
+                        "imei": "string",
+                        "install_app_store": "string",
+                        "install_time": "string",
+                        "install_time_selected_timezone": "string",
+                        "ip": "string",
+                        "is_lat": "string",
+                        "is_primary_attribution": "string",
+                        "is_receipt_validated": "string",
+                        "is_retargeting": "string",
+                        "keyword_id": "string",
+                        "keyword_match_type": "string",
+                        "language": "string",
+                        "match_type": "string",
+                        "media_source": "string",
+                        "network_account_id": "string",
+                        "oaid": "string",
+                        "operator": "string",
+                        "original_url": "string",
+                        "os_version": "string",
+                        "platform": "string",
+                        "postal_code": "string",
+                        "region": "string",
+                        "retargeting_conversion_type": "string",
+                        "revenue_in_selected_currency": "string",
+                        "sdk_version": "string",
+                        "selected_currency": "string",
+                        "selected_timezone": "string",
+                        "state": "string",
+                        "store_reinstall": "string",
+                        "user_agent": "string",
+                        "wifi": "string",
+                        "af_channel": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "When server error",
+              "content": {}
+            }
+          }
+        },
+        "post": {
+          "requestBody": {
+            "description": "A JSON object containing appsflyer data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "advertising_id": {
+                      "type": "string"
+                    },
+                    "af_ad": {
+                      "type": "string"
+                    },
+                    "af_ad_id": {
+                      "type": "string"
+                    },
+                    "af_ad_type": {
+                      "type": "string"
+                    },
+                    "af_adset": {
+                      "type": "string"
+                    },
+                    "af_adset_id": {
+                      "type": "string"
+                    },
+                    "af_attribution_lookback": {
+                      "type": "string"
+                    },
+                    "af_c_id": {
+                      "type": "string"
+                    },
+                    "af_cost_currency": {
+                      "type": "string"
+                    },
+                    "af_cost_model": {
+                      "type": "string"
+                    },
+                    "af_cost_value": {
+                      "type": "string"
+                    },
+                    "af_keywords": {
+                      "type": "string"
+                    },
+                    "af_prt": {
+                      "type": "string"
+                    },
+                    "af_reengagement_window": {
+                      "type": "string"
+                    },
+                    "af_siteid": {
+                      "type": "string"
+                    },
+                    "af_sub1": {
+                      "type": "string"
+                    },
+                    "af_sub2": {
+                      "type": "string"
+                    },
+                    "af_sub3": {
+                      "type": "string"
+                    },
+                    "af_sub4": {
+                      "type": "string"
+                    },
+                    "af_sub5": {
+                      "type": "string"
+                    },
+                    "af_sub_siteid": {
+                      "type": "string"
+                    },
+                    "amazon_aid": {
+                      "type": "string"
+                    },
+                    "android_id": {
+                      "type": "string"
+                    },
+                    "api_version": {
+                      "type": "string"
+                    },
+                    "app_id": {
+                      "type": "string"
+                    },
+                    "app_name": {
+                      "type": "string"
+                    },
+                    "app_version": {
+                      "type": "string"
+                    },
+                    "appsflyer_id": {
+                      "type": "string"
+                    },
+                    "attributed_touch_time": {
+                      "type": "string"
+                    },
+                    "attributed_touch_time_selected_timezone": {
+                      "type": "string"
+                    },
+                    "attributed_touch_type": {
+                      "type": "string"
+                    },
+                    "bundle_id": {
+                      "type": "string"
+                    },
+                    "campaign": {
+                      "type": "string"
+                    },
+                    "carrier": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "contributor_1_af_prt": {
+                      "type": "string"
+                    },
+                    "contributor_1_campaign": {
+                      "type": "string"
+                    },
+                    "contributor_1_match_type": {
+                      "type": "string"
+                    },
+                    "contributor_1_media_source": {
+                      "type": "string"
+                    },
+                    "contributor_1_touch_time": {
+                      "type": "string"
+                    },
+                    "contributor_1_touch_type": {
+                      "type": "string"
+                    },
+                    "contributor_2_af_prt": {
+                      "type": "string"
+                    },
+                    "contributor_2_campaign": {
+                      "type": "string"
+                    },
+                    "contributor_2_match_type": {
+                      "type": "string"
+                    },
+                    "contributor_2_media_source": {
+                      "type": "string"
+                    },
+                    "contributor_2_touch_time": {
+                      "type": "string"
+                    },
+                    "contributor_2_touch_type": {
+                      "type": "string"
+                    },
+                    "contributor_3_af_prt": {
+                      "type": "string"
+                    },
+                    "contributor_3_campaign": {
+                      "type": "string"
+                    },
+                    "contributor_3_match_type": {
+                      "type": "string"
+                    },
+                    "contributor_3_media_source": {
+                      "type": "string"
+                    },
+                    "contributor_3_touch_time": {
+                      "type": "string"
+                    },
+                    "contributor_3_touch_type": {
+                      "type": "string"
+                    },
+                    "cost_in_selected_currency": {
+                      "type": "string"
+                    },
+                    "country_code": {
+                      "type": "string"
+                    },
+                    "custom_data": {
+                      "type": "string"
+                    },
+                    "customer_user_id": {
+                      "type": "string"
+                    },
+                    "deeplink_url": {
+                      "type": "string"
+                    },
+                    "device_category": {
+                      "type": "string"
+                    },
+                    "device_download_time": {
+                      "type": "string"
+                    },
+                    "device_download_time_selected_timezone": {
+                      "type": "string"
+                    },
+                    "device_type": {
+                      "type": "string"
+                    },
+                    "htc": {
+                      "type": "string"
+                    },
+                    "dma": {
+                      "type": "string"
+                    },
+                    "event_name": {
+                      "type": "string"
+                    },
+                    "event_revenue": {
+                      "type": "string"
+                    },
+                    "event_revenue_currency": {
+                      "type": "string"
+                    },
+                    "event_revenue_usd": {
+                      "type": "string"
+                    },
+                    "event_source": {
+                      "type": "string"
+                    },
+                    "event_time": {
+                      "type": "string"
+                    },
+                    "event_time_selected_timezone": {
+                      "type": "string"
+                    },
+                    "event_value": {
+                      "type": "string"
+                    },
+                    "gp_broadcast_referrer": {
+                      "type": "string"
+                    },
+                    "gp_click_time": {
+                      "type": "string"
+                    },
+                    "gp_install_begin": {
+                      "type": "string"
+                    },
+                    "gp_referrer": {
+                      "type": "string"
+                    },
+                    "http_referrer": {
+                      "type": "string"
+                    },
+                    "idfa": {
+                      "type": "string"
+                    },
+                    "idfv": {
+                      "type": "string"
+                    },
+                    "imei": {
+                      "type": "string"
+                    },
+                    "install_app_store": {
+                      "type": "string"
+                    },
+                    "install_time": {
+                      "type": "string"
+                    },
+                    "install_time_selected_timezone": {
+                      "type": "string"
+                    },
+                    "ip": {
+                      "type": "string"
+                    },
+                    "is_lat": {
+                      "type": "string"
+                    },
+                    "is_primary_attribution": {
+                      "type": "string"
+                    },
+                    "is_receipt_validated": {
+                      "type": "string"
+                    },
+                    "is_retargeting": {
+                      "type": "string"
+                    },
+                    "keyword_id": {
+                      "type": "string"
+                    },
+                    "keyword_match_type": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "string"
+                    },
+                    "match_type": {
+                      "type": "string"
+                    },
+                    "media_source": {
+                      "type": "string"
+                    },
+                    "network_account_id": {
+                      "type": "string"
+                    },
+                    "oaid": {
+                      "type": "string"
+                    },
+                    "operator": {
+                      "type": "string"
+                    },
+                    "original_url": {
+                      "type": "string"
+                    },
+                    "os_version": {
+                      "type": "string"
+                    },
+                    "platform": {
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "retargeting_conversion_type": {
+                      "type": "string"
+                    },
+                    "revenue_in_selected_currency": {
+                      "type": "string"
+                    },
+                    "sdk_version": {
+                      "type": "string"
+                    },
+                    "selected_currency": {
+                      "type": "string"
+                    },
+                    "selected_timezone": {
+                      "type": "string"
+                    },
+                    "state": {
+                      "type": "string"
+                    },
+                    "store_reinstall": {
+                      "type": "string"
+                    },
+                    "user_agent": {
+                      "type": "string"
+                    },
+                    "wifi": {
+                      "type": "string"
+                    },
+                    "af_channel": {
+                        "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "summary": "Saving raw json data from appsflyer",
+          "responses": {
+            "200": {
+              "description": "Response OK",
+              "content": {}
+            },
+            "500": {
+              "description": "When server error",
+              "content": {}
+            }
+          }
+        }
+      },
+      "/api/v1/event": {
+        "post": {
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Creating event in the appsflyer",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ShortEventPost"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FullEventPost"
+                    }
+                  ]
+                },
+                "examples": {
+                  "ShortEventPost": {
+                    "value": {
+                      "mobile_phone": "123",
+                      "eventName": "test",
+                      "eventValue": "test"
+                    }
+                  },
+                  "FullEventPost": {
+                    "value": {
+                      "mobile_phone": "123",
+                      "eventName": "test",
+                      "eventValue": "test",
+                      "idfa_id": "id",
+                      "appsflyer_id": "appsflyer_id",
+                      "app_bundle": "app_bundle",
+                      "os": "android"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Response OK",
+              "content": {}
+            },
+            "404": {
+              "description": "When the borrower wasn't found",
+              "content": {}
+            },
+            "500": {
+              "description": "When server error",
+              "content": {}
+            }
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,1 @@
+CREATE INDEX CONCURRENTLY appsflyer_data_android_id_idx ON public.appsflyer_data ((raw_json->>'android_id'));

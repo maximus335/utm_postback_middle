@@ -1,0 +1,52 @@
+image: golang:1.13
+
+services:
+  - postgres:11.2
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .cache/
+
+variables:
+  GOPATH: "$CI_PROJECT_DIR/.cache"
+  GO111MODULE: "on"
+
+stages:
+  - build
+  - lint
+  - test
+
+build:
+  stage: build
+  before_script:
+    - apt-get update
+    - apt-get install -y build-essential git
+    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@git.cashwagon.com/".insteadOf "https://git.cashwagon.com/"
+  script:
+    - make
+
+golangci-lint:
+  stage: lint
+  before_script:
+    - apt-get update
+    - apt-get install -y build-essential git
+    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@git.cashwagon.com/".insteadOf "https://git.cashwagon.com/"
+    - go mod download
+    - wget -O - -q https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.21.0
+  script:
+    - ./bin/golangci-lint run
+
+test:
+  stage: test
+  before_script:
+    - apt-get update
+    - apt-get install -y build-essential git postgresql-client curl
+    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@git.cashwagon.com/".insteadOf "https://git.cashwagon.com/"
+    - curl -L https://github.com/golang-migrate/migrate/releases/download/v4.7.0/migrate.linux-amd64.tar.gz | tar xz -C /tmp
+    - mkdir -p ./bin && cp /tmp/migrate.linux-amd64 ./bin/migrate
+    - cp configs/test.ci.yml configs/test.yml
+    - psql -h postgres -U postgres -c 'CREATE DATABASE utm_postback_middle_test'
+    - ./bin/migrate -source file://db/migrations -database postgres://postgres:postgres@postgres:5432/utm_postback_middle_test?sslmode=disable up
+  script:
+    - make coverage

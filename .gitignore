@@ -1,0 +1,7 @@
+configs/test.yml
+configs/kafka.yml
+configs/utm_postback_middle.yml
+dist/
+*.out
+.bash_history
+.psql_history

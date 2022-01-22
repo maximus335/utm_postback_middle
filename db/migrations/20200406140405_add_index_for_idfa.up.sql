@@ -1,0 +1,1 @@
+CREATE INDEX CONCURRENTLY appsflyer_data_idfa_idx ON public.appsflyer_data ((raw_json->>'idfa'));

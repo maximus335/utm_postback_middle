@@ -1,0 +1,58 @@
+---
+    version: '3.4'
+
+    services:
+      workspace: &workspace
+        build:
+          context: .
+          dockerfile: ./.dockerdev/Dockerfile
+          args:
+            golangVersion: '1.13.0'
+            golangciLintVersion: '1.21.0'
+        image: utm_postback_middle:latest
+        command: /bin/sh -c 'exit 0'
+        entrypoint: ''
+        environment:
+          GO111MODULE: 'on'
+          HISTFILE: /app/.bash_history
+          EDITOR: vim
+        volumes:
+          - .:/app:cached
+          - go-modules:/go/pkg/mod
+
+      app:
+        <<: *workspace
+        stdin_open: true
+        tty: true
+        ports:
+          - '127.0.0.1:3000:3000'
+        depends_on:
+          - postgresql
+
+      postgresql:
+        image: postgres:11.1-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          PSQL_HISTFILE: /root/.psql_history
+        volumes:
+          - postgresql:/var/lib/postgresql/data
+          - ./.psql_history:/root/.psql_history
+
+      postgresql-runner:
+        image: postgres:11.1-alpine
+        command: /bin/sh -c 'exit 0'
+        entrypoint: ''
+        stdin_open: true
+        tty: true
+        environment:
+          PSQL_HISTFILE: /root/.psql_history
+          PGPASSWORD: postgres
+        volumes:
+          - ./.psql_history:/root/.psql_history
+        depends_on:
+          - postgresql
+
+    volumes:
+      go-modules:
+      postgresql:

@@ -1,0 +1,6 @@
+{{- $env := or (env "ENV") "k8s" -}}
+{{- $application := or (env "APPLICATION") "utm_postback_middle" -}}
+{{- $configPath := printf "%s/%s/" $env $application -}}
+{{- with ls $configPath | explode -}}
+{{ .utm_postback_middle }}
+{{- end }}
